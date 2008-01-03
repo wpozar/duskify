@@ -1,9 +1,10 @@
 //todo
-//- all to select on descendant of "body" element not "html" (with head)
 //- try to put ComputedStyle in a variable and use it for fg, bg and borders
 //- add progress bar
 //- display time it has taken to run extension, it should dissapear after couple of seconds
-//- parse css "background" for plain colours
+//- parse css "background" property for plain colours
+//- add about box and sort out add-ons manager icons/description etc.
+//- sort out hosting and automated upgrades on mozilla site
 
 var duskify = {
 
@@ -15,8 +16,15 @@ var duskify = {
 
     onDuskifyCommand: function(e) {
 	var all = content.document.getElementsByTagName("*");
+//	var bdy = content.document.getElementsByTagName('body')[0];
+//	var all = bdy.getElementsByTagName('*');
+
+//	var objStyle = objElement.ownerDocument.defaultView.getComputedStyle(objElement, null);
+//		objRGB = objColour.getRGBColorValue();
+//		var strRed = objRGB.red.getFloatValue(CSSPrimitiveValue.CSS_NUMBER).toString(16);
 
 	for (var i=0; i<all.length; i++) {
+//	    var elemStyle = content.document.defaultView.getComputedStyle(all[i],null);
 	    //background
  	    if (content.document.defaultView.getComputedStyle(all[i],null).getPropertyValue('background-color') != "transparent")
  		all[i].style.backgroundColor = halve(content.document.defaultView.getComputedStyle(all[i],null).getPropertyValue('background-color'));

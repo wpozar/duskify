@@ -1,13 +1,10 @@
 //todo
-//- try to put ComputedStyle in a variable and use it for fg, bg and borders
-//- add progress bar
-//- display time it has taken to run extension, it should dissapear after couple of seconds
 //- parse css "background" property for plain colours
 //- add about box and sort out add-ons manager icons/description etc.
 //- sort out hosting and automated upgrades on mozilla site
 
 var duskify = {
-
+    
     onLoad: function() {
 	// initialization code
 	this.initialized = true;
@@ -15,22 +12,20 @@ var duskify = {
     },
     
     onDuskifyCommand: function(e) {
-	var all = content.document.getElementsByTagName("*");
-	//	var bdy = content.document.getElementsByTagName('body')[0];
-	//	var all = bdy.getElementsByTagName('*');
 	
-	//	var objStyle = objElement.ownerDocument.defaultView.getComputedStyle(objElement, null);
-	//		objRGB = objColour.getRGBColorValue();
-	//		var strRed = objRGB.red.getFloatValue(CSSPrimitiveValue.CSS_NUMBER).toString(16);
+	var all = content.document.getElementsByTagName("*");
 	
 	for (var i=0; i<all.length; i++) {
 	    var elemStyle = content.document.defaultView.getComputedStyle(all[i],null);
+	    
 	    //background
  	    if (elemStyle.getPropertyValue('background-color') != "transparent")
  		all[i].style.backgroundColor = halve(elemStyle.getPropertyValue('background-color'));
+	    
 	    //foreground
 	    if (elemStyle.getPropertyValue('color') != "rgb(0, 0, 0)")
 		all[i].style.color = halve(elemStyle.getPropertyValue('color'));
+	    
 	    //borders
 	    if (elemStyle.getPropertyValue('border-top-color') != "rgb(0, 0, 0)")
 		all[i].style.borderTopColor = halve(elemStyle.getPropertyValue('border-top-color'));
@@ -45,25 +40,25 @@ var duskify = {
 };
 
 function process(bits) {
-	return [ parseInt(bits[1]), parseInt(bits[2]), parseInt(bits[3]) ];
+    return [ parseInt(bits[1]), parseInt(bits[2]), parseInt(bits[3]) ];
 };
 
 function halve(olde) {
     re = /^rgb\((\d{1,3}),\s*(\d{1,3}),\s*(\d{1,3})\)$/;
     bits = re.exec(olde);
-
+    
     channels = process(bits);
-    this.r = channels[0];
-    this.g = channels[1];
-    this.b = channels[2];
+    r = channels[0];
+    g = channels[1];
+    b = channels[2];
     
-    this.r = (this.r < 0 || isNaN(this.r)) ? 0 : ((this.r > 255) ? 255 : this.r);
-    this.g = (this.g < 0 || isNaN(this.g)) ? 0 : ((this.g > 255) ? 255 : this.g);
-    this.b = (this.b < 0 || isNaN(this.b)) ? 0 : ((this.b > 255) ? 255 : this.b);
+    r = (r < 0 || isNaN(r)) ? 0 : ((r > 255) ? 255 : r);
+    g = (g < 0 || isNaN(g)) ? 0 : ((g > 255) ? 255 : g);
+    b = (b < 0 || isNaN(b)) ? 0 : ((b > 255) ? 255 : b);
     
-    r = Math.round(this.r/2).toString(16);
-    g = Math.round(this.g/2).toString(16);
-    b = Math.round(this.b/2).toString(16);
+    r = Math.round(r/2).toString(16);
+    g = Math.round(g/2).toString(16);
+    b = Math.round(b/2).toString(16);
     if (r.length == 1) r = '0' + r;
     if (g.length == 1) g = '0' + g;
     if (b.length == 1) b = '0' + b;

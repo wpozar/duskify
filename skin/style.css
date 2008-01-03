@@ -1,0 +1,11 @@
+#duskify-button {
+  list-style-image: url("chrome://duskify/skin/btn_large.png");
+}
+
+toolbar[iconsize="small"] #duskify-button {
+  list-style-image: url("chrome://duskify/skin/btn_small.png");
+}
+
+#duskify-hello {
+  color: red ! important;
+}

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="chrome://duskify/skin/style.css" type="text/css"?>
+<!DOCTYPE overlay SYSTEM "chrome://duskify/locale/duskify.dtd">
+
+<overlay id="duskify-overlay" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+  <script src="overlay.js"/>
+
+  <stringbundleset id="stringbundleset">
+    <stringbundle id="duskify-strings" src="chrome://duskify/locale/duskify.properties"/>
+  </stringbundleset>
+
+  <menupopup id="menu_ToolsPopup">
+    <menuitem id="duskify-hello" label="&duskify.label;" oncommand="duskify.onMenuItemCommand(event);"/>
+  </menupopup>
+
+  <toolbarpalette id="BrowserToolbarPalette">
+    <toolbarbutton id="duskify-button" class="duskify-button" label="Duskify" tooltiptext="Duskify page" oncommand="duskify.onMenuItemCommand(event);"/>
+  </toolbarpalette>
+
+</overlay>

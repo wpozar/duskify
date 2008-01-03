@@ -1,0 +1,4 @@
+content	duskify	content/
+locale	duskify	en-US	locale/en-US/
+skin	duskify	classic/1.0	skin/
+overlay	chrome://browser/content/browser.xul	chrome://duskify/content/firefoxOverlay.xul

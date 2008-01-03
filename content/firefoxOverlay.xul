@@ -11,11 +11,11 @@
   </stringbundleset>
 
   <menupopup id="menu_ToolsPopup">
-    <menuitem id="duskify-hello" label="&duskify.label;" oncommand="duskify.onMenuItemCommand(event);"/>
+    <menuitem id="duskify-hello" label="&duskify.label;" oncommand="duskify.onDuskifyCommand(event);"/>
   </menupopup>
 
   <toolbarpalette id="BrowserToolbarPalette">
-    <toolbarbutton id="duskify-button" class="duskify-button" label="Duskify" tooltiptext="Duskify page" oncommand="duskify.onMenuItemCommand(event);"/>
+    <toolbarbutton id="duskify-button" class="duskify-button" label="Duskify" tooltiptext="Duskify page" oncommand="duskify.onDuskifyCommand(event);"/>
   </toolbarpalette>
 
 </overlay>

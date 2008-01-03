@@ -13,33 +13,33 @@ var duskify = {
 	this.initialized = true;
 	this.strings = document.getElementById("duskify-strings");
     },
-
+    
     onDuskifyCommand: function(e) {
 	var all = content.document.getElementsByTagName("*");
-//	var bdy = content.document.getElementsByTagName('body')[0];
-//	var all = bdy.getElementsByTagName('*');
-
-//	var objStyle = objElement.ownerDocument.defaultView.getComputedStyle(objElement, null);
-//		objRGB = objColour.getRGBColorValue();
-//		var strRed = objRGB.red.getFloatValue(CSSPrimitiveValue.CSS_NUMBER).toString(16);
-
+	//	var bdy = content.document.getElementsByTagName('body')[0];
+	//	var all = bdy.getElementsByTagName('*');
+	
+	//	var objStyle = objElement.ownerDocument.defaultView.getComputedStyle(objElement, null);
+	//		objRGB = objColour.getRGBColorValue();
+	//		var strRed = objRGB.red.getFloatValue(CSSPrimitiveValue.CSS_NUMBER).toString(16);
+	
 	for (var i=0; i<all.length; i++) {
-//	    var elemStyle = content.document.defaultView.getComputedStyle(all[i],null);
+	    var elemStyle = content.document.defaultView.getComputedStyle(all[i],null);
 	    //background
- 	    if (content.document.defaultView.getComputedStyle(all[i],null).getPropertyValue('background-color') != "transparent")
- 		all[i].style.backgroundColor = halve(content.document.defaultView.getComputedStyle(all[i],null).getPropertyValue('background-color'));
+ 	    if (elemStyle.getPropertyValue('background-color') != "transparent")
+ 		all[i].style.backgroundColor = halve(elemStyle.getPropertyValue('background-color'));
 	    //foreground
-	    if (content.document.defaultView.getComputedStyle(all[i],null).getPropertyValue('color') != "rgb(0, 0, 0)")
-		all[i].style.color = halve(content.document.defaultView.getComputedStyle(all[i],null).getPropertyValue('color'));
+	    if (elemStyle.getPropertyValue('color') != "rgb(0, 0, 0)")
+		all[i].style.color = halve(elemStyle.getPropertyValue('color'));
 	    //borders
-	    if (content.document.defaultView.getComputedStyle(all[i],null).getPropertyValue('border-top-color') != "rgb(0, 0, 0)")
-		all[i].style.borderTopColor = halve(content.document.defaultView.getComputedStyle(all[i],null).getPropertyValue('border-top-color'));
-	    if (content.document.defaultView.getComputedStyle(all[i],null).getPropertyValue('border-bottom-color') != "rgb(0, 0, 0)")
-		all[i].style.borderBottomColor = halve(content.document.defaultView.getComputedStyle(all[i],null).getPropertyValue('border-bottom-color'));
-	    if (content.document.defaultView.getComputedStyle(all[i],null).getPropertyValue('border-left-color') != "rgb(0, 0, 0)")
-		all[i].style.borderLeftColor = halve(content.document.defaultView.getComputedStyle(all[i],null).getPropertyValue('border-left-color'));
-	    if (content.document.defaultView.getComputedStyle(all[i],null).getPropertyValue('border-right-color') != "rgb(0, 0, 0)")
-		all[i].style.borderRightColor = halve(content.document.defaultView.getComputedStyle(all[i],null).getPropertyValue('border-right-color'));
+	    if (elemStyle.getPropertyValue('border-top-color') != "rgb(0, 0, 0)")
+		all[i].style.borderTopColor = halve(elemStyle.getPropertyValue('border-top-color'));
+	    if (elemStyle.getPropertyValue('border-bottom-color') != "rgb(0, 0, 0)")
+		all[i].style.borderBottomColor = halve(elemStyle.getPropertyValue('border-bottom-color'));
+	    if (elemStyle.getPropertyValue('border-left-color') != "rgb(0, 0, 0)")
+		all[i].style.borderLeftColor = halve(elemStyle.getPropertyValue('border-left-color'));
+	    if (elemStyle.getPropertyValue('border-right-color') != "rgb(0, 0, 0)")
+		all[i].style.borderRightColor = halve(elemStyle.getPropertyValue('border-right-color'));
 	}
     },
 };

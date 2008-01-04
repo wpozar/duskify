@@ -2,63 +2,47 @@
 //- parse css "background" property for plain colours
 //- add about box and sort out add-ons manager icons/description etc.
 //- sort out hosting and automated upgrades on mozilla site
+//- try timer based background duskifying
+//- automatically duskify all pages (with on/off switch)
 
 var duskify = {
     
     onLoad: function() {
-	// initialization code
-	this.initialized = true;
-	this.strings = document.getElementById("duskify-strings");
+        // initialization code
+        this.initialized = true;
+        this.strings = document.getElementById("duskify-strings");
     },
     
     onDuskifyCommand: function(e) {
-	
-	var all = content.document.getElementsByTagName("*");
-	
-	for (var i=0; i<all.length; i++) {
-	    var elemStyle = content.document.defaultView.getComputedStyle(all[i],null);
-	    
-	    //background
- 	    if (elemStyle.getPropertyValue('background-color') != "transparent")
- 		all[i].style.backgroundColor = halve(elemStyle.getPropertyValue('background-color'));
-	    
-	    //foreground
-	    if (elemStyle.getPropertyValue('color') != "rgb(0, 0, 0)")
-		all[i].style.color = halve(elemStyle.getPropertyValue('color'));
-	    
-	    //borders
-	    if (elemStyle.getPropertyValue('border-top-color') != "rgb(0, 0, 0)")
-		all[i].style.borderTopColor = halve(elemStyle.getPropertyValue('border-top-color'));
-	    if (elemStyle.getPropertyValue('border-bottom-color') != "rgb(0, 0, 0)")
-		all[i].style.borderBottomColor = halve(elemStyle.getPropertyValue('border-bottom-color'));
-	    if (elemStyle.getPropertyValue('border-left-color') != "rgb(0, 0, 0)")
-		all[i].style.borderLeftColor = halve(elemStyle.getPropertyValue('border-left-color'));
-	    if (elemStyle.getPropertyValue('border-right-color') != "rgb(0, 0, 0)")
-		all[i].style.borderRightColor = halve(elemStyle.getPropertyValue('border-right-color'));
-	}
+//        date1=new Date();mills1=date1.getTime();
+        
+        var all = content.document.getElementsByTagName("*");
+	var elemStyle; var col;
+        
+        for (var i=0; i<all.length; i++) {
+            elemStyle = content.document.defaultView.getComputedStyle(all[i],null);
+            
+            col = elemStyle.getPropertyValue('background-color');    if (col != "transparent")  all[i].style.backgroundColor   = halve(col);
+            col = elemStyle.getPropertyValue('color');               if (col != "rgb(0, 0, 0)") all[i].style.color             = halve(col);
+            col = elemStyle.getPropertyValue('border-top-color');    if (col != "rgb(0, 0, 0)") all[i].style.borderTopColor    = halve(col);
+            col = elemStyle.getPropertyValue('border-bottom-color'); if (col != "rgb(0, 0, 0)") all[i].style.borderBottomColor = halve(col);
+            col = elemStyle.getPropertyValue('border-left-color');   if (col != "rgb(0, 0, 0)") all[i].style.borderLeftColor   = halve(col);
+            col = elemStyle.getPropertyValue('border-right-color');  if (col != "rgb(0, 0, 0)") all[i].style.borderRightColor  = halve(col);
+        }
+        
+//        date2=new Date();mills2=date2.getTime();alert(mills2-mills1);
     },
 };
 
-function process(bits) {
-    return [ parseInt(bits[1]), parseInt(bits[2]), parseInt(bits[3]) ];
-};
-
 function halve(olde) {
-    re = /^rgb\((\d{1,3}),\s*(\d{1,3}),\s*(\d{1,3})\)$/;
-    bits = re.exec(olde);
+    bits = /^rgb\((\d{1,3}), (\d{1,3}), (\d{1,3})\)$/.exec(olde);
     
-    channels = process(bits);
-    r = channels[0];
-    g = channels[1];
-    b = channels[2];
+    channels = [ parseInt(bits[1]), parseInt(bits[2]), parseInt(bits[3]) ];
     
-    r = (r < 0 || isNaN(r)) ? 0 : ((r > 255) ? 255 : r);
-    g = (g < 0 || isNaN(g)) ? 0 : ((g > 255) ? 255 : g);
-    b = (b < 0 || isNaN(b)) ? 0 : ((b > 255) ? 255 : b);
+    r = Math.round(channels[0]/2).toString(16);
+    g = Math.round(channels[1]/2).toString(16);
+    b = Math.round(channels[2]/2).toString(16);
     
-    r = Math.round(r/2).toString(16);
-    g = Math.round(g/2).toString(16);
-    b = Math.round(b/2).toString(16);
     if (r.length == 1) r = '0' + r;
     if (g.length == 1) g = '0' + g;
     if (b.length == 1) b = '0' + b;

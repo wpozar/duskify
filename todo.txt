@@ -1,0 +1,7 @@
+todo:
+- parse css "background" property for plain colours
+- add about box and sort out add-ons manager icons/description etc.
+- sort out hosting and automated upgrades on mozilla site
+- try timer based background duskifying
+- automatically duskify all pages (with on/off switch)
+

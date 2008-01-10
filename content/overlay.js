@@ -1,10 +1,3 @@
-//todo
-//- parse css "background" property for plain colours
-//- add about box and sort out add-ons manager icons/description etc.
-//- sort out hosting and automated upgrades on mozilla site
-//- try timer based background duskifying
-//- automatically duskify all pages (with on/off switch)
-
 var duskify = {
     
     onLoad: function() {
@@ -14,25 +7,24 @@ var duskify = {
     },
     
     onDuskifyCommand: function(e) {
-//        date1=new Date();mills1=date1.getTime();
-        
-        var all = content.document.getElementsByTagName("*");
-	var elemStyle; var col;
-        
-        for (var i=0; i<all.length; i++) {
-            elemStyle = content.document.defaultView.getComputedStyle(all[i],null);
-            
-            col = elemStyle.getPropertyValue('background-color');    if (col != "transparent")  all[i].style.backgroundColor   = halve(col);
-            col = elemStyle.getPropertyValue('color');               if (col != "rgb(0, 0, 0)") all[i].style.color             = halve(col);
-            col = elemStyle.getPropertyValue('border-top-color');    if (col != "rgb(0, 0, 0)") all[i].style.borderTopColor    = halve(col);
-            col = elemStyle.getPropertyValue('border-bottom-color'); if (col != "rgb(0, 0, 0)") all[i].style.borderBottomColor = halve(col);
-            col = elemStyle.getPropertyValue('border-left-color');   if (col != "rgb(0, 0, 0)") all[i].style.borderLeftColor   = halve(col);
-            col = elemStyle.getPropertyValue('border-right-color');  if (col != "rgb(0, 0, 0)") all[i].style.borderRightColor  = halve(col);
-        }
-        
-//        date2=new Date();mills2=date2.getTime();alert(mills2-mills1);
+	all = content.document.getElementsByTagName("*");
+	step(all,all.length,0);
     },
 };
+
+function step(all, maxNum, currentNum) {
+    elemStyle = content.document.defaultView.getComputedStyle(all[currentNum],null);
+    
+    col = elemStyle.getPropertyValue('background-color');    if (col != "transparent")  all[currentNum].style.backgroundColor   = halve(col);
+    col = elemStyle.getPropertyValue('color');               if (col != "rgb(0, 0, 0)") all[currentNum].style.color             = halve(col);
+    col = elemStyle.getPropertyValue('border-top-color');    if (col != "rgb(0, 0, 0)") all[currentNum].style.borderTopColor    = halve(col);
+    col = elemStyle.getPropertyValue('border-bottom-color'); if (col != "rgb(0, 0, 0)") all[currentNum].style.borderBottomColor = halve(col);
+    col = elemStyle.getPropertyValue('border-left-color');   if (col != "rgb(0, 0, 0)") all[currentNum].style.borderLeftColor   = halve(col);
+    col = elemStyle.getPropertyValue('border-right-color');  if (col != "rgb(0, 0, 0)") all[currentNum].style.borderRightColor  = halve(col);
+    
+    currentNum = currentNum + 1;
+    if (currentNum < maxNum) step(all, maxNum, currentNum);
+}
 
 function halve(olde) {
     bits = /^rgb\((\d{1,3}), (\d{1,3}), (\d{1,3})\)$/.exec(olde);
@@ -51,3 +43,4 @@ function halve(olde) {
 }
 
 window.addEventListener("load", function(e) { duskify.onLoad(e); }, false);
+window.addEventListener("DOMContentLoaded", function(e) { duskify.onDuskifyCommand(e); }, false);

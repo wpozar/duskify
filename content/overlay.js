@@ -1,5 +1,4 @@
 var duskify = {
-    
     onLoad: function() {
         // initialization code
         this.initialized = true;
@@ -7,37 +6,49 @@ var duskify = {
     },
     
     onDuskifyCommand: function(e) {
-	all = content.document.getElementsByTagName("*");
-	duskify.step(all,all.length,0);
+	var allElements = content.document.getElementsByTagName("*");
+	duskify.normalColors(allElements, allElements.length, 0);
     },
     
-    step: function(all, maxNum, currentNum) {
-        elemStyle = content.document.defaultView.getComputedStyle(all[currentNum],null);
-        
-        col = elemStyle.getPropertyValue('background-color');    if (col != "transparent")  all[currentNum].style.backgroundColor   = duskify.halve(col);
-        col = elemStyle.getPropertyValue('color');               if (col != "rgb(0, 0, 0)") all[currentNum].style.color             = duskify.halve(col);
-        col = elemStyle.getPropertyValue('border-top-color');    if (col != "rgb(0, 0, 0)") all[currentNum].style.borderTopColor    = duskify.halve(col);
-        col = elemStyle.getPropertyValue('border-bottom-color'); if (col != "rgb(0, 0, 0)") all[currentNum].style.borderBottomColor = duskify.halve(col);
-        col = elemStyle.getPropertyValue('border-left-color');   if (col != "rgb(0, 0, 0)") all[currentNum].style.borderLeftColor   = duskify.halve(col);
-        col = elemStyle.getPropertyValue('border-right-color');  if (col != "rgb(0, 0, 0)") all[currentNum].style.borderRightColor  = duskify.halve(col);
-        currentNum = currentNum + 1;
-        if (currentNum < maxNum) setTimeout(function(){duskify.step(all,maxNum,currentNum);}, 0);
+    normalColors: function(allElements, maxNum, currentNum) {
+        var elemStyle = content.document.defaultView.getComputedStyle(allElements[currentNum], null);
+	
+        var color = elemStyle.getPropertyValue('background-color');    if (color != "transparent")  allElements[currentNum].style.backgroundColor   = duskify.halve(color);
+	var color = elemStyle.getPropertyValue('color');               if (color != "rgb(0, 0, 0)") allElements[currentNum].style.color             = duskify.halve(color);
+	var color = elemStyle.getPropertyValue('border-top-color');    if (color != "rgb(0, 0, 0)") allElements[currentNum].style.borderTopColor    = duskify.halve(color);
+	var color = elemStyle.getPropertyValue('border-bottom-color'); if (color != "rgb(0, 0, 0)") allElements[currentNum].style.borderBottomColor = duskify.halve(color);
+	var color = elemStyle.getPropertyValue('border-left-color');   if (color != "rgb(0, 0, 0)") allElements[currentNum].style.borderLeftColor   = duskify.halve(color);
+	var color = elemStyle.getPropertyValue('border-right-color');  if (color != "rgb(0, 0, 0)") allElements[currentNum].style.borderRightColor  = duskify.halve(color);
+
+	var color = elemStyle.getPropertyValue('background');
+	if (color != "") alert(color);
+
+        if (++currentNum < maxNum) setTimeout( function() { duskify.normalColors(allElements, maxNum, currentNum); }, 0 );
+	//	else duskify.images(allElements, maxNum, 0);
     },
     
+    images: function(allElements, maxNum, currentNum) {
+	//if (allElements[currentNum].type ==  "img") {
+	alert(allElements[currentNum].type);
+	//}
+        if (++currentNum < maxNum) setTimeout( function() { duskify.images(allElements, maxNum, currentNum); }, 0 );
+	else alert("koniec");
+    },
+
     halve: function(olde) {
-        bits = /^rgb\((\d{1,3}), (\d{1,3}), (\d{1,3})\)$/.exec(olde);
+        var bits = /^rgb\((\d{1,3}), (\d{1,3}), (\d{1,3})\)$/.exec(olde);
         
-        channels = [ parseInt(bits[1]), parseInt(bits[2]), parseInt(bits[3]) ];
+        var channels = [ parseInt(bits[1]), parseInt(bits[2]), parseInt(bits[3]) ];
         
-        r = Math.round(channels[0]/2).toString(16);
-        g = Math.round(channels[1]/2).toString(16);
-        b = Math.round(channels[2]/2).toString(16);
+        channels[0] = Math.round(channels[0]/2).toString(16);
+        channels[1] = Math.round(channels[1]/2).toString(16);
+        channels[2] = Math.round(channels[2]/2).toString(16);
         
-        if (r.length == 1) r = '0' + r;
-        if (g.length == 1) g = '0' + g;
-        if (b.length == 1) b = '0' + b;
+        if (channels[0].length == 1) channels[0] = '0' + channels[0];
+        if (channels[1].length == 1) channels[1] = '0' + channels[1];
+        if (channels[2].length == 1) channels[2] = '0' + channels[2];
         
-        return '#' + r + g + b;
+        return '#' + channels.join("");
     },
 };
 

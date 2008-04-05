@@ -4,7 +4,8 @@
   <Description about="urn:mozilla:install-manifest">
     <em:id>wpozar@gmail.com</em:id>
     <em:name>duskify</em:name>
-    <em:version>1.8</em:version>
+    <em:description>Makes pages darker.</em:description>
+    <em:version>1.9</em:version>
     <em:creator>wpozar</em:creator>
     <em:targetApplication>
       <Description>

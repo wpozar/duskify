@@ -1,9 +1,9 @@
-todo:
+todo: 
 - parse css "background" property for plain colours
-- Check acfs transparency method
-- add about box and sort out add-ons manager icons/description etc.
+- add about box and sort out add-ons manager icon
 - sort out hosting and automated upgrades on mozilla site
 - automatically duskify all pages (with on/off switch)
 	- create "disabled" icon
 	- how to change toolbar image
 - duskify new pages opened in the background, not the current displayed page
+- replace <img> with <div style=..."/><img>
